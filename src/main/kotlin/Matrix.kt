@@ -11,7 +11,9 @@ data class Matrix(val rows: List<List<Number>>) {
         }
     }
 
-    private val columns: List<List<Number>> = List(rows.first().size) { index -> rows.map{ row -> row[index] } }
+    private val columns: List<List<Number>> by lazy {
+        List(rows.first().size) { index -> rows.map { row -> row[index] } }
+    }
 
     fun transpose(): Matrix {
         return Matrix(columns)
@@ -59,11 +61,11 @@ data class Matrix(val rows: List<List<Number>>) {
     }
 
     operator fun times(scalar: Number): Matrix {
-        return Matrix(rows.map { it.map { it * scalar } })
+        return Matrix(rows.map { row -> row.map { it * scalar } })
     }
 
     operator fun div(scalar: Number): Matrix {
-        return Matrix(rows.map { it.map { it / scalar } })
+        return Matrix(rows.map { row -> row.map { it / scalar } })
     }
 
     operator fun times(other: Matrix): Matrix {
@@ -71,11 +73,12 @@ data class Matrix(val rows: List<List<Number>>) {
             throw IllegalArgumentException("Number of columns in first matrix must match number of rows in second matrix")
         }
 
-        return Matrix(this.rows.map {
-                row -> other.columns.map{
-                column -> row.zip(column).map {
-                pair -> pair.first * pair.second }
-                .reduce{ x, y -> x + y } } })
+        return Matrix(this.rows.map { row ->
+            other.columns.map { column ->
+                row.zip(column).map { pair -> pair.first * pair.second }
+                    .reduce { x, y -> x + y }
+            }
+        })
     }
 
     operator fun get(i: Int): List<Number> {
