@@ -106,20 +106,13 @@ data class Matrix(val rows: List<List<Number>>) {
                 is Double -> String.format("%.2f", it)
                 else -> it.toString()
             } } }
-        val max = stringMatrix.flatMap { row -> row.map { it.length } }
-            .maxOrNull()
+
         val output: StringBuilder = StringBuilder()
+        val max = stringMatrix.flatten().maxOf { it.length }
+        val formatString = "%-${max + 1}s"
 
-        val longFormatString = "%-${max?.plus(1) ?: 0}d"
-        val doubleFormatString = "%-${max?.plus(1) ?: 0}.2f"
-
-        for (row in rows) {
-            row.forEach {
-                when(it) {
-                    is Long -> output.append(String.format(longFormatString, it))
-                    is Double -> output.append(String.format(doubleFormatString, it))
-                }
-            }
+        for (row in stringMatrix) {
+            row.forEach { output.append(String.format(formatString, it)) }
             output.append("\n")
         }
 
@@ -128,10 +121,8 @@ data class Matrix(val rows: List<List<Number>>) {
 
     companion object Factory {
         fun fromStrings(stringMatrix: List<List<String>>): Matrix {
-            return Matrix(
-                stringMatrix.map { row -> row.map {
-                    if (it.contains('.')) it.toDouble() else it.toLong() } }
-            )
+            return Matrix(stringMatrix.map { row -> row.map {
+                    if (it.contains('.')) it.toDouble() else it.toLong() } })
         }
     }
 }
