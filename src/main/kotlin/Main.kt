@@ -13,23 +13,23 @@ fun main() {
                 1 -> {
                     val (matrix1, matrix2) = getTwoMatricesInput(scanner)
                     println("The result is:")
-                    printMatrix(matrix1 + matrix2)
+                    println(matrix1 + matrix2)
                 }
                 2 -> {
                     val matrix = getOneMatrixInput(scanner)
                     val constant = getConstant(scanner)
                     println("The result is:")
-                    printMatrix(matrix * constant)
+                    println(matrix * constant)
                 }
                 3 -> {
                     val (matrix1, matrix2) = getTwoMatricesInput(scanner)
                     println("The result is:")
-                    printMatrix(matrix1 * matrix2)
+                    println(matrix1 * matrix2)
                 }
                 4 -> {
                     val matrix = getOneMatrixInput(scanner)
                     println("The result is:")
-                    printMatrix(matrix.transpose())
+                    println(matrix.transpose())
                 }
                 5 -> {
                     val matrix = getOneMatrixInput(scanner)
@@ -39,7 +39,7 @@ fun main() {
                     try {
                         val matrix = getOneMatrixInput(scanner)
                         println("The result is:")
-                        printMatrix(matrix.inverse())
+                        println(matrix.inverse())
                     } catch (e: ArithmeticException) {
                         println("This matrix doesn't have an inverse.")
                     }

@@ -47,7 +47,7 @@ data class Matrix(val rows: List<List<Number>>) {
         }
 
         val result: List<List<Number>> = this.rows.zip(other.rows)
-            .map { it.first.zip(it.second).map { it.first + it.second } }
+            .map { rowPair -> rowPair.first.zip(rowPair.second).map { valuePair -> valuePair.first + valuePair.second } }
 
         return Matrix(result)
     }
@@ -98,5 +98,31 @@ data class Matrix(val rows: List<List<Number>>) {
 
     private fun cofactor(i: Int, j: Int): Number {
         return minor(i, j) * ((-1.0).pow(i + 1 + j + 1).toLong())
+    }
+
+    override fun toString(): String {
+        val stringMatrix = rows.map { row -> row.map {
+            when(it) {
+                is Double -> String.format("%.2f", it)
+                else -> it.toString()
+            } } }
+        val max = stringMatrix.flatMap { row -> row.map { it.length } }
+            .maxOrNull()
+        val output: StringBuilder = StringBuilder()
+
+        val longFormatString = "%-${max?.plus(1) ?: 0}d"
+        val doubleFormatString = "%-${max?.plus(1) ?: 0}.2f"
+
+        for (row in rows) {
+            row.forEach {
+                when(it) {
+                    is Long -> output.append(String.format(longFormatString, it))
+                    is Double -> output.append(String.format(doubleFormatString, it))
+                }
+            }
+            output.append("\n")
+        }
+
+        return output.toString()
     }
 }
