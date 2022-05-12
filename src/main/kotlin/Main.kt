@@ -77,19 +77,19 @@ fun getOneMatrixInput(scanner: Scanner): Matrix {
     val (numRows, numColumns) = getDimensions(scanner)
     println("Enter matrix:")
 
-    return createMatrixFromStrings(getMatrixString(scanner, numRows))
+    return Matrix.fromStrings(getMatrixString(scanner, numRows))
 }
 
 fun getTwoMatricesInput(scanner: Scanner): Pair<Matrix, Matrix> {
     print("Enter size of first matrix: ")
     val (numRows1, numColumns1) = getDimensions(scanner)
     println("Enter first matrix:")
-    val matrix1 = createMatrixFromStrings(getMatrixString(scanner, numRows1))
+    val matrix1 = Matrix.fromStrings(getMatrixString(scanner, numRows1))
 
     print("Enter size of second matrix: ")
     val (numRows2, numColumns2) = getDimensions(scanner)
     println("Enter second matrix:")
-    val matrix2 = createMatrixFromStrings(getMatrixString(scanner, numRows2))
+    val matrix2 = Matrix.fromStrings(getMatrixString(scanner, numRows2))
 
     return matrix1 to matrix2
 }

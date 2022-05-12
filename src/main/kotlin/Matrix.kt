@@ -125,4 +125,13 @@ data class Matrix(val rows: List<List<Number>>) {
 
         return output.toString()
     }
+
+    companion object Factory {
+        fun fromStrings(stringMatrix: List<List<String>>): Matrix {
+            return Matrix(
+                stringMatrix.map { row -> row.map {
+                    if (it.contains('.')) it.toDouble() else it.toLong() } }
+            )
+        }
+    }
 }
