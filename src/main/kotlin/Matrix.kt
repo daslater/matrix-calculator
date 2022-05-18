@@ -73,10 +73,11 @@ data class Matrix(val rows: List<List<Number>>) {
             throw IllegalArgumentException("Number of columns in first matrix must match number of rows in second matrix")
         }
 
-        return Matrix(this.rows.map { row ->
-            other.columns.map { column ->
-                row.zip(column).map { pair -> pair.first * pair.second }
-                    .reduce { x, y -> x + y }
+        return Matrix(this.rows.map {
+                row -> other.columns.map {
+                column -> row.zip(column).map {
+                pair -> pair.first * pair.second }
+                .reduce { x, y -> x + y }
             }
         })
     }
